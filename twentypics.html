@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<HTML>
+
+<head>
+	
+	
+	<meta charset="utf-8">
+	<title>FB pics</title>
+	<!--Style Sheet-->
+	<link		rel="stylesheet" 
+				type="text/css"
+				href="twentypics.css">
+	
+	
+</head>
+
+<body>
+<div id="fb-root"></div>
+<script>
+  //I followed the instructions and got the login code from:
+	//https://developers.facebook.com/docs/facebook-login/login-flow-for-web/v2.3
+	//to get started
+	
+	function statusChangeCallback(response){
+		console.log('statusChangeCallback');
+		console.log(response);
+		
+		//If successful login, we start the getpic() function
+		if (response.status === 'connected'){
+			getPic();
+		}
+		//Logged into facebook, but not this app
+		else if(response.status === 'not_authorized'){
+			document.getElementById('footer').innerHTML = 'Please Log into the app';
+		}
+		//Not logged into facebook
+		else{
+			document.getElementById('footer').innerHTML = 'Please Log Into facebook';
+		}
+	}
+	//CheckLoginState is a function I took from devolopers.facebook.com 
+	function checkLoginState(){
+		FB.getLoginStatus(function(response) {
+			statusChangeCallback(response);
+		});	
+	}
+	//This function is from Devolopers.facebook.com
+	//Initilizes the facebook JS SDK
+	window.fbAsyncInit = function() {
+		FB.init({
+			appId		:	'830096320398873',
+			cookie		:	true,		
+			xfbml		:	true,
+			version		:	'v2.3'
+		});
+	
+	FB.getLoginStatus(function(response){
+		statusChangeCallback(response);
+	});
+	};
+	(function(d, s, id){
+		 var js, fjs = d.getElementsByTagName(s)[0];
+		 if (d.getElementById(id)) return;
+		 js = d.createElement(s); js.id = id;
+		 //js.src = "//connect.facebook.net/en_US/sdk.js";
+		 js.src = "//connect.facebook.net/en_US/sdk/debug.js";
+		 fjs.parentNode.insertBefore(js, fjs);
+	 }(document, 'script', 'facebook-jssdk'));
+	
+	
+	
+	//Function to get 20 motivational pics from the Zig Ziglzr public page
+	function getPic(){
+		//This is a call to Zig Ziglars Album feed
+		FB.api('10151939698197863/photos?limit=20', 
+		
+			function (response){
+				if(response){
+					var div = document.getElementById('center');
+					var len = response.data.length;
+					var i = 0;
+									
+					//Loop prints 20 pictures to the center DIV
+					//Each day the Zig Ziglar website adds a new picture
+					//Making this look different every dayu
+					for (var i=0; i < len; i++){
+						div.innerHTML = div.innerHTML + 
+						'<img id="pic'+i+'" src="'+response.data[i].source + '" width="90%">';					
+					}
+				}	
+			}
+		);
+	}
+			 
+    </script>
+	
+	<!-- WRAPPER-->
+<div id="wrapper" class="wrapper" >
+
+	<!-- HEADER-->
+	<div id="header" class = "header" >
+		<h1>Zig Ziglar Picture Posts</h1>
+	</div>
+
+	<!-- Main Content -->
+	<div id="center">
+	<!---Pics are going here -->
+	</div>
+	
+	<!-- FOOTER I included a facebook like button as well as a log-in button-->
+	<div id="footer" class="fb-like"
+		data-send="true"
+		data-width="450"
+		data-show-faces="true">
+	<fb:login-button scope="public_profile, email" onlogin="checkLoginState();">
+	</fb:login-button>
+	
+	</div>
+
+</div>
+</body>
+</HTML>

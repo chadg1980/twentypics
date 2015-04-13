@@ -1,0 +1,23 @@
+body{
+	background-color: #1C8B85;
+}
+h1{
+	color:#003166;
+	text-align: center;
+}
+#center{
+	
+	padding: 25px;
+	position: relative;
+}
+
+img{
+	border:6px solid  #003166;
+	border-radius: 20px;
+	-moz-border-radius: 20px;
+	background-color: blue;
+	margin-bottom: 150px;
+	margin-left: 50px;
+	vertical-align: middle;
+	
+}
