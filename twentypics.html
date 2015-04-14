@@ -29,11 +29,11 @@
 		}
 		//Logged into facebook, but not this app
 		else if(response.status === 'not_authorized'){
-			document.getElementById('footer').innerHTML = 'Please Log into the app';
+			document.getElementById('header').innerHTML = 'Please Log into the app';
 		}
 		//Not logged into facebook
 		else{
-			document.getElementById('footer').innerHTML = 'Please Log Into facebook';
+			document.getElementById('header').innerHTML = 'Please Log Into facebook';
 		}
 	}
 	//CheckLoginState is a function I took from devolopers.facebook.com 
@@ -94,11 +94,15 @@
 	
 	<!-- WRAPPER-->
 <div id="wrapper" class="wrapper" >
-
+	<!----Header---->
+	<div id="header" class="header">
+		
+	</div>
 	<!-- Main Content -->
 	<div id="center">
 	<!---Pics are going here -->
 	</div>
+	
 	
 	<!-- FOOTER I included a facebook like button as well as a log-in button-->
 	<div id="footer" class="fb-like"
